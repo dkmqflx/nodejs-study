@@ -120,6 +120,64 @@ console.log(module.exports === exports); //  false
 
 ## 4.10 타이머와 콜스택의 연관
 
+- 아래와 같은 코드 실행하게 되면
+
+```js
+console.log("code1");
+setTimeout(() => {
+  console.log("setTimeout 0");
+}, 0);
+
+console.log("code2");
+setImmediate(() => {
+  console.log("setImmediate");
+});
+
+console.log("code3");
+process.nextTick(() => {
+  console.log("process.nextTick");
+});
+```
+
+- 다음과 같은 순서로 출력된다
+
+```shell
+
+code1
+code2
+code3
+
+process.nextTick # 태스크 큐의 우선순위 제일 높으므로
+setTimeout 0
+setImmediate
+
+```
+
+- setTimeout과 setImmediate는 거의 동일
+
+<br/>
+
+- 아래 코드는 코드를 실행하는데 얼마나 걸리지 알아보기 위한 코드
+
+```js
+console.log("code1");
+console.time("timeout 0");
+
+setTimeout(() => {
+  console.log("setTimeout 0");
+  console.timeEnd("timeout 0");
+}, 0);
+
+/**
+ * code1
+ * setTimeout 0
+ * timeout 0: 3.015ms
+ * /
+
+```
+
+- 즉, 정확히 0초가 보장되지 않는다. 콜스택이 텅텅비어있을 때 까지 기다려야 하기 때문
+
 ---
 
 ## 4.11 path 그리고 유의할 점
