@@ -92,6 +92,12 @@ console.log(module.exports === exports); //  false
 
 ## 4.7 2015 최신 모듈 (export, import)
 
+- common.js가 아니라 자바스크립트에서 자체적으로 지원하는 module을 사용할 것이라고 선언
+
+```json
+  "type": "module",
+```
+
 ---
 
 ## 4.8 os (운영체제) 정보
