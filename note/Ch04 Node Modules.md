@@ -54,15 +54,39 @@
 
 ---
 
-## 4.4 콘솔 로그의 진실
-
----
-
-## 4.5 this란 (브라우저와의 차이점)
-
----
-
 ## 4.6 모듈 (export, require)
+
+아래처럼 처음 선언할 때는 module을 생략해서 할당할 수 있다.
+
+```js
+module.exports.getCount = getCount;
+
+exports.increase = increase;
+
+console.log(module);
+console.log(module.exports === exports); //  true
+```
+
+- exports는 module.exports를 참조하는, 참조값을 가지고 있다
+
+- 이를 통해서 등록할 수 있는 것
+
+- 하지만 아래처럼 exports에 다른 값을 할당하면
+
+- module.exports에 값이 등록되지 않는 것을 확인할 수 있다
+
+```js
+module.exports.getCount = getCount;
+
+exports = {};
+
+exports.increase = increase; // 빈 객체에 등록
+
+console.log(module);
+console.log(module.exports === exports); //  false
+```
+
+- 그렇기 때문에 module 키워드를 생략하고 exports에 바로 값을 등록하는 것은 위험하다
 
 ---
 
