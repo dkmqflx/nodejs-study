@@ -128,3 +128,25 @@ npm list -g --dept=0 # 라이브러리가 설치한 다른 라이브러리 까�
   - sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
 
   - https://stackoverflow.com/questions/47252451/permission-denied-when-installing-npm-modules-in-osx/47252840
+
+---
+
+## 5.6 프로젝트 라이브러리 확인, 설치 및 삭제
+
+```shell
+
+npm view underscore # view 명령어를 통해 특정한 라이브러리에 대한 정보를 볼 수 있다
+
+npm i underscore
+
+```
+
+- node_modules 보면 underscore라는 라이브러리 설치된 것과 소스코드를 다운로드 받은 것을 볼 수 있다.
+
+- package-lock.json를 통해 정확한 버전의 라이브러리를 사용했는지 알 수 있다.
+
+```shell
+
+npm uninstall underscore # 라이브러리 삭제
+
+```
