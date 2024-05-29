@@ -283,6 +283,47 @@ const buf = Buffer.from('hi', 'utf8');    // 위 코드와 동일
 
 ## 4.16 스트림의 매력
 
+- ReadStream의 정의를 보면 아래처럼 Buffer 가 올 수도 있고 utf-8로 옵션을 지정하면 string으로 전달받을 수도 있다.
+
+```ts
+ on(event: "data", listener: (chunk: Buffer | string) => void): this;
+
+```
+
+- 아래처럼 데이터를 읽고 에러처리를 할 수 있다.
+
+```ts
+const readStream = fs.createReadStream("./file.txt", {
+  highWaterMark: 8, // 기본값: 64 kbytes, 한번에 얼마만큼 데이터를 읽어올지
+  encoding: "utf-8",
+});
+
+readStream.on("data", (chunk) => {
+  console.log(chunk);
+  // 데이터가 부분부분씩 출력이 된다
+});
+
+readStream.on("data", (error) => {
+  console.log(error);
+});
+```
+
+- on은 자기자신을 리턴하므로 아래처럼 체이닝을 할 수 있다.
+
+```ts
+fs.createReadStream("./file.txt", {
+  highWaterMark: 8, // 기본값: 64 kbytes, 한번에 얼마만큼 데이터를 읽어올지
+  encoding: "utf-8",
+})
+  .on("data", (chunk) => {
+    console.log(chunk);
+    // 데이터가 부분부분씩 출력이 된다
+  })
+  .on("end", () => {
+    console.log(data.join(""));
+  });
+```
+
 ---
 
 ## 4.17 파이프 ǂ
