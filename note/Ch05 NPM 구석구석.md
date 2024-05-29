@@ -150,3 +150,42 @@ npm i underscore
 npm uninstall underscore # 라이브러리 삭제
 
 ```
+
+---
+
+## 5.7 버전 업데이트 하기
+
+```shell
+
+npm outdated # 업데이트가 필요한 라이브러리들을 확인할 수 있다.
+
+npm update underscore
+```
+
+### Q.
+
+- 다름이 아니라 npm으로 다양한 라이브러리들을 설치해서 프로젝트를 진행하다 보면 vulnerability와 관련해서 npm audit fix를 하라는 메세지들을 자주 보게 됩니다.
+
+- package간의 호환, 취약점 등 때문에 audit fix를 해야한다는 정도로 알고 있고, 이때까지는 문제가 없기에 의심없이 npm audit fix를 해왔었는데요.
+
+- 혹시 대표적으로 어떤 이유 때문에 vulnerability가 발생하고, 이로 인해 어떤 문제가 생기는지 여쭤보고 싶습니다!
+
+- 물론 먼저 구글링해서 자료 검색을 해보았으나, 항상 실무와 연결하셔서 속이 시원하게 설명해주시기에 혹시 실무에서 언급되는 이슈들이 있다면 알려주시면 정말 감사드리겠습니다!!
+
+### A.
+
+- NPM은 프로젝트에서 사용하는 모든 dependencies에 대해 (설치한 패키지와 그리고 그 패키지가 필요로 하는 모든 서브 패키지들) 보안 관련 문제점을 검사할 수 있는 메카니즘이 있어요 :)
+
+- 코드 자체를 분석하는것이 아니라, NPM에 등록된 리파지토리중에 다른 사용자가 보안 이슈를 신고한것이 있는지 확인해서 특정한 버전에 신고된것이 있으면 우리가 경고 메시지를 보게 되는거죠. npm install과 같은 명령어를 실행할때도 자동으로 검사가 진행되어요.
+
+- NPM사이트에서 "Report Malware" 버튼을 잉요해서 문제되는 패키지 버전을 신고할 수 있어요.
+
+  - https://blog.npmjs.org/post/179430064885/writing-quality-vulnerability-reports
+
+- 예를 들어 패키지 버전이 업데이트 되었는데, 업데이트 된 버전에서 사용자의 인풋을 sanitise하지 않고 그냥 수락하게 되면 악성 자바스크립트 코드를 실행할 수 있겠죠? 그럼 Report Malware 신고를 당할 수 있어요.
+
+- npm adit fix를 통해서 이런 이슈를 해결할 수 있는데, 마찬가지로 코드 자체를 마법처럼 자동으로 수정해주는 것이 아니라 보안 이슈가 수정된 버전이 있으면 그 버전으로 업데이트 해서 버전 정보만 package-lock.json에 업데이트 해준답니다.
+
+- 자세한 내용은 여기서 확인해 보세요:
+
+  - https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities
