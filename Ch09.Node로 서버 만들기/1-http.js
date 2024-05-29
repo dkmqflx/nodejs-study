@@ -13,8 +13,17 @@ const server = http.createServer((req, res) => {
   console.log(req.method);
   console.log(req.url);
 
-  res.write("welcome"); // 화면에 welcome 텍스트가 보인다
-  res.end();
+  const url = req.url;
+
+  res.setHeader("Content-Type", "text/html"); // html 파일을 보내겠다고 헤더에 선언
+
+  if (url === "/") {
+    fs.createReadStream("./html/index.html").pipe(res);
+  } else if (url === "/courses") {
+    fs.createReadStream("./html/courses.html").pipe(res);
+  } else {
+    fs.createReadStream("./html/not-found.html").pipe(res);
+  }
 });
 
 server.listen(8080); // 어떤 포트에서 서버를 구동할 것인지
