@@ -40,3 +40,25 @@ npm -v
 npm init # --yes
 
 ```
+
+---
+
+## 5.3 소프트웨어 라이센스란? 꿀사이트 🔖
+
+- package.json에는 license라는 필드가 있다
+
+  ```json
+  {
+    "license": "ISC"
+  }
+  ```
+
+- 영상에서 언급된 라이센스 관련 사이트:
+
+  - https://spdx.org/licenses/
+
+    - 라이센스 종류에 대해 알아볼 수 있다.
+
+  - https://www.olis.or.kr/license/Detailselect.do?lType=spdx&lId=1074
+
+- 라이브러리로 제공할 때 제품을 만드는 것은 괜찮지만 수정해서 재배포하면 안된다 이런 것들을 명시할 때 적절한 라이센스를 사용하면 된다
