@@ -24,3 +24,19 @@
 - npx는 따로 라이브러리를 우리 pc에 저장하지 않고 바로 실행할 수 있게 해준다
 
 - 따라서 개별적으로 실행가능한 자바스크립트 툴이나 스크립트가 있다면 npx를 사용해서 이용할 수 있다
+
+---
+
+## 5.2 NPM 시작하기
+
+- NPM 명령어: https://docs.npmjs.com/cli/v7/commands
+
+```shell
+
+npm
+
+npm -v
+
+npm init # --yes
+
+```
