@@ -189,3 +189,17 @@ npm update underscore
 - 자세한 내용은 여기서 확인해 보세요:
 
   - https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities
+
+---
+
+## 5.8 개발 모드로 설치하기 + 좋은 툴 설치
+
+- 개발할 때만 필요한 라이브러리가 있다
+
+```shell
+
+npm view nodemon # nodemon은 우리 노드를 끊임없이 동작하면서 파일이 변경되면 자동으로 재시작하도록 해주는 라이브러리
+
+npm install -D nodemon # 개발할 때만 필요하므로m --save-dev, devDependencies로 설치가 된다
+
+```
