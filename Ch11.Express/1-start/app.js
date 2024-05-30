@@ -25,4 +25,10 @@ app.get("/hello", (req, res, next) => {
   // res.sendStatus(400);
 });
 
+// use는 경로를 지정하지 않으면 모든 요청에 대해 우리가 원하는 콜백함수를 실행시켜 준다
+// get()을 통해서 처리하지 않고 여기까지 도착했다는 것은 처리할 수 없는 경로인 not found이기 때문에 아래처럼 처리해준다
+app.use((req, res) => {
+  res.send("<h1>Not Found!</h1>");
+});
+
 app.listen(8080);

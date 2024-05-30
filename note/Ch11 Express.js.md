@@ -77,3 +77,45 @@ app.get('/', function (req, res, next) {
 ## 11.3 서버 만들기
 
 - https://expressjs.com/en/4x/api.html
+
+---
+
+## 11.6 미들웨어의 중요한 특징
+
+- 콜백함수에서 send를 아래처럼 보낼 수 없기 때문에 꼭 return을 붙여주어야 한다
+
+```js
+app.get(
+  "/",
+  (req, res, next) => {
+    console.log("first");
+
+    if (true) {
+      // res.send("Hello");, return 없으면 에러 발생
+      return res.send("Hello");
+    }
+    res.send("Hello2");
+  },
+  (req, res, next) => {
+    console.log("Hello3");
+  }
+);
+```
+
+- all을 사용하면 /blue/color 이런식으로 요청을 하면 처리가 되지 않고 딱 경로가 맞아야지 수행이 된다
+
+```js
+app.all("/blue", (req, res, next) => {
+  console.log("blue");
+  next();
+});
+```
+
+- use를 사용하면 /red 뿐 아니라 /red/color와 같은 경로를 사용하더라도 호출이 된다
+
+```js
+app.use("/red", (req, res, next) => {
+  console.log("red");
+  next();
+});
+```
