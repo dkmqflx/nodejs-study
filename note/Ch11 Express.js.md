@@ -187,3 +187,85 @@ app.use("/red", (req, res, next) => {
 - 다 정확하고, 각각의 미들웨어에서 특정 부분에서 (미들웨어 코드 시작 지점, 중간 지점과 같은) next()를 호출해서 바로 다음 미들웨어로 건너뛰게 만들 수 있고,
 
 - 또는 next()를 별도로 호출하지 않는다면 미들웨어 코드가 다 수행한 뒤에, Express가 자동으로 (암묵적으로) 등록된 다음 미들웨어를 실행해 준답니다.
+
+---
+
+## 11.12 CORS란? 개념과 처리 방법
+
+### CORS (Cross-origin resource sharing)
+
+- 클라이언트와 서버가 동일한 IP에서 주소에서 동작하고 있지만 리소스를 별다른 제약 없이 주고 받을 수 있지만
+
+- 다른 IP를 가진 다면 원칙적으로 그 어떤 데이터를 주고 받을 수 없 다
+
+- 그래서 서버에서 Access-Control-Allow-Origin라는 것을 헤더에 추가해주어야지 브라우저에서 데이터를 가져와서 클라이언트에서 볼 수 있다
+
+<br/>
+
+### Q.
+
+- cors option에 대한 구체적인 설명이 궁금해서 찾아본 내용들을 공유합니다. 해석이 정확하지 않을 수도 있습니다.
+
+- credentials : Access-Control-Allow-Credentials CORS 헤더를 제어합니다. true로 설정될 경우 쿠키, authorization 헤더, TLS 클라이언트 인증서와 같은 자격증명들이 클라이언트에게 노출 된다고 합니다. 이 때, origin은 \*가 아닌 정확한 도메인으로 명시되어야합니다.
+
+- maxAge: Access-Control-Max-Age CORS 헤더를 제어합니다. integer(초 단위)를 value로 받으면, 해당 시간만큼 preflight request를 보내지 않고 이전 preflight request에 대한 응답을 캐시하는 시간을 지정해줍니다.
+
+- optionsSuccessStatus: OPTIONS 요청이 성공 했을 때, IE11이나 다양한 스마트 티비 같은 레거시 브라우저에서 204를 제공해주는데, 204 대신 다른 status 코드를 지정해줄 수 있습니다.
+
+### A.
+
+- 정리하신 내용 공유해 주셔서 감사합니다 👍
+
+- 더 깊이 있게 알아 보고 싶으시면 여기도 확인해 보세요: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+
+<br/>
+
+### Q.
+
+- 실습중에 이해하기 힘든 부분이 있어서 질문드립니다.
+
+```js
+app.use(
+  cors({
+    origin: ["http://127.0.0.1:5500"], //live-server
+
+    methods: ["PUT"],
+  })
+);
+```
+
+- 설정을 해놓았는데요.
+
+- live-server 에서 fetchAPI 를 통해 get 방식으로 통신이 잘 되서요. insomnia(like postman) 에서 method를 OPTOINS 요청하면 Access-Control-Allow-Methods = 'PUT' 로 응답은 잘 받거든요..
+
+- 제가 강의를 들으면서 이해한바로는 등록된 methods 에 대해서만 cors-error 를 발생시키지 않고 정상응답을 하는걸로 이해했거든요.
+
+- 요약하여 질문 요청 사항은
+
+  - cors options 으로 methods 'put' 만 설정하였는데 OPTIONS, GET 방식의 요청에 대해서 응답을 제대로 하는 이유입니다.
+
+### A.
+
+- CORS는 브라우저에서만 해당하는 보안정책으로 Postman이나 다른 서버에서 API 사용하는데는 CORS 관련 헤더 없어도 잘 동작해요 :)
+
+- 브라우저에서 하시면 PUT만 허용되는걸 확인해 볼 수 있을거예요 🙌
+
+### Q.
+
+- 브라우저에서 확인해본결과 ['PUT', 'DELETE'] 는 cors 허용을 안해주면, 원하는대로 cors 에러가 발생되더라고요!
+
+- 그런데.. cors 를 'DELETE' 만 허용해주고 브라우저에서 요청하는 fetchAPI 의 method 를 'GET', 'POST' 도 정상응답이 되었고, 'PUT' 으로 요청했을 때, preflight 요청 'OPTIONS' 도 정상응답이 되었습니다.
+
+- 'GET', 'POST', 'OPTIONS' 를 cors 허용하지 않으려면, 어떻게 해야 될까요?
+
+### A.
+
+- 아하! CORS 오리진이 허용되었다면,
+
+- Get, Head, Post 메소드들은 안전한걸로 간주 되기 때문에, Access-Control-Allow-Methods에 없어도 서버에서 데이터를 받아올 수 있어요 :)
+
+  - (Get, Head, Post 이 친구들을 'simple' 간단한 메소드들이라고 불러요)
+
+- https://developer.mozilla.org/ko/docs/Web/HTTP/CORS
+
+- 이 페이지에서 프리플라이트 요청 부분 보시면 이해에 도움이 될 것 같아요
