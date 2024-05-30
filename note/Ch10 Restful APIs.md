@@ -141,3 +141,62 @@
 - /posts/getPosts (GET) -> /posts (GET)
 
 - /posts/createPosts (GET) -> /posts (POST)
+
+---
+
+## 10.4 보통의 Rest APIs 예제 (기업 사례)
+
+- https://developers.google.com/youtube/v3/docs/videos/list
+
+  - 이런 문서를 통해 다른 기업은 어떤식으로 API를 제공하는지 알 수 있다
+
+  - 보면 앞서 배운 RESTful API 원칙 6가지 중 hypermedia 링크를 제공해주어야 한다는 원칙이 지켜지지 않은 것을 확인할 수 있다.
+
+  - 그렇기 때문에 사용자는 어떠한 API로 요청을 해야 하는지 url을 다 알고 있어야 한다
+
+  - 이 API도 나쁘지 않다. 통상적으로 사용되는 RESTful API 방식
+
+---
+
+## 10.5 진정한 Rest APIs 예제 (기업 사례)
+
+- https://developer.github.com/v3/
+
+  - RESTful API 원칙을 따른 좋은 사례
+
+- https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#get-a-pull-request
+
+  - Response 보면 아래처럼 여러가지 기능별로 다른 url이 제공되는 것을 확인할 수 있다.
+
+  - 즉, 해당 도메인과 연관된 사용가능한 모든 url에 대한 정보가 함께 제공된다
+
+  ```shell
+  ...
+
+  "html_url": "https://github.com/octocat/Hello-World/pull/1347",
+  "diff_url": "https://github.com/octocat/Hello-World/pull/1347.diff",
+  "patch_url": "https://github.com/octocat/Hello-World/pull/1347.patch",
+  "issue_url": "https://api.github.com/repos/octocat/Hello-World/issues/1347",
+  "commits_url": "https://api.github.com/repos/octocat/Hello-World/pulls/1347/commits",
+
+  ...
+
+  ```
+
+- 사실 이런 것은 드문 케이스로 이렇게 하는 곳 많지 않다
+
+<br/>
+
+### Q.
+
+- restful api 예시에서는 생성, 수정, 삭제와 같은 기능들이 하나씩 처리하는 것을 예시로 볼 수 있는데 만약 동시에 이뤄지는 기능이 필요하다면 어떻게 처리가 가능할까요?
+
+- 예를 들어 회원 가입시 아이디 중복 체크
+
+- 성공시 아이디 생성 과 같은 경우 어떻게 만들어야 할까요?
+
+### A.
+
+- 보통 회원가입같은 경우 아이디 생성 Rest API에서 중복되는 아이디가 있다면 409 에러 코드를 보내준답니다.
+
+- RestAPI에서는 도메인 별로, 최대한 작은 단위로 API를 만드는것이 권장되고 있어요.
