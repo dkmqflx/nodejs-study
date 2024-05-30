@@ -40,8 +40,6 @@ app.get("/file3", async (req, res) => {
   }
 });
 
-// 버전 5 이하에서는: require('express-async-errors');
-
 // use를 사용해서 에러를 한번에 처리할 수 있다
 // Express 5 부터는 이렇게
 app.use((error, req, res, next) => {
