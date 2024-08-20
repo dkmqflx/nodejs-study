@@ -110,11 +110,11 @@ npm i -h
 
 npm i -g netlify # 내 컴퓨터에 전체적으로 필요한 라이브러리인 경우 글로벌로 컴퓨터 전체에 설치한다
 
-npm list -h
+npm list # 현재 프로젝트에 설치된 패키지에 대한 정보를 볼 수 있다. 
 
-npm list
+npm list -h 
 
-npm list -g # 글로벌로 설치된 패키지
+npm list -g # 글로벌로 설치된 패키지 리스트
 
 npm list -g --dept=0 # 라이브러리가 설치한 다른 라이브러리 까지 보고 싶지 않다면 뎁스 설정한다
 ```
@@ -135,7 +135,7 @@ npm list -g --dept=0 # 라이브러리가 설치한 다른 라이브러리 까�
 
 ```shell
 
-npm view underscore # view 명령어를 통해 특정한 라이브러리에 대한 정보를 볼 수 있다
+npm view underscore # view 명령어를 통해 특정한 라이브러리(underscore)에 대한 정보를 볼 수 있다
 
 npm i underscore
 
@@ -161,6 +161,10 @@ npm outdated # 업데이트가 필요한 라이브러리들을 확인할 수 있
 
 npm update underscore
 ```
+
+- package.json에서 버전 바꾸게 되면 그에 따라 npm outdated 명령어의 결과도 다르게 나온다
+
+  - ex. 1.12.1, ^1.12.1
 
 ### Q.
 
@@ -196,10 +200,12 @@ npm update underscore
 
 - 개발할 때만 필요한 라이브러리가 있다
 
+  - 배포할 때는 불필요한 라이브러리
+
 ```shell
 
 npm view nodemon # nodemon은 우리 노드를 끊임없이 동작하면서 파일이 변경되면 자동으로 재시작하도록 해주는 라이브러리
 
-npm install -D nodemon # 개발할 때만 필요하므로m --save-dev, devDependencies로 설치가 된다
+npm install -D nodemon # 개발할 때만 필요하므로 --save-dev, devDependencies로 설치가 된다
 
 ```
