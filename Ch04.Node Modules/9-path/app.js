@@ -40,15 +40,14 @@ const str = path.format(parsed); // string 형태로 변환한다
 console.log(str); // 경로가 string 형태로 출력된다
 
 // isAbsolute
-console.log("isAbsolute?", path.isAbsolute(__dirname)); // /Users/로 시작하므로 false
-console.log("isAbsolute?", path.isAbsolute("../")); // true
+console.log("isAbsolute?", path.isAbsolute(__dirname)); // /Users/로 시작하므로 true
+console.log("isAbsolute?", path.isAbsolute("../")); // false
 
 // normalize
 console.log(path.normalize("./folder////////sub")); // 이상한 경로인 경우 알아서 고쳐준다
 // folder/sub 로 알아서 수정해준다
 
 // join
-
 console.log(__dirname + "/" + "image"); // 이렇게 하면 윈도우에서는 이상한 경로가 된다
 
 console.log(__dirname + path.sep + "image"); // 운영체제별로 다른 구분자 사용하도록
