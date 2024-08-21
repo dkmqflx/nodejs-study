@@ -2,12 +2,14 @@ const path = require("path");
 const os = require("os");
 const fs = require("fs");
 
+// nodemon app.js test // 이렇게 실행한다
+
 // 계획
-// 1. 현재 작업하고 있는 폴더의 이름을 받아온다
-const folder = process.argv[2]; // 우리가 작업하고 있는 폴더
+// 1. 사용자가 원하는 폴더의 이름을 받아온다
+const folder = process.argv[2]; // 테스트 하고자 하는 폴더 이름
 
 // 우리가 작업하고자 하는 폴더 만들어준다
-const workingDir = path.join(os.homedir(), "Pictures", folder); // /Pictures/"우리가 작업하고 있는 폴더"
+const workingDir = path.join(os.homedir(), "Pictures", folder);
 
 //  폴더 없거나 존재 하지 않는 경로라면
 if (!folder || !fs.existsSync(workingDir)) {
