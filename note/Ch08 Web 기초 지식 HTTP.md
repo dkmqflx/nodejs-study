@@ -30,6 +30,8 @@
 
 - 크게 보안과 성능이 개선되었다
 
+  - v2는 HTTPS만 사용할 수 있다.
+
 - v3는 기존의 tcp기반으로 http가 만들어진 것과 달리 udp 기반
 
 ---
@@ -112,6 +114,8 @@
   - https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
   - https://developer.mozilla.org/ko/docs/Web/HTTP/Methods (한국어 버전)
+    
+  - https://developer.mozilla.org/ko/docs/Glossary/Idempotent (멱등성)
 
 ### Q. Idempotent about PUT/PATCH
 
@@ -147,19 +151,49 @@
 
 - 아무리 동일한 PATCH 요청 이더라도, 서버에 요청한 갯수만큼 더 많은 데이터가 추가 되겠죠?
 
+### A. 
+
+- PUT은 해당 리소스를 완전히 교체해 버리기 때문에 멱등입니다.
+
+- PATCH는 멱등으로 설계할 수도 있지만, 멱등이 아니게도 설계할 수 있습니다.
+
+- 예를들어서 다음과 같은 경우는 PATCH 이지만 멱등입니다.
+
+```json
+{ name: "kim"}
+```
+
+- 반면에 다음과 같은 경우는 PATCH 이지만 멱등이 아닙니다.
+
+- 예를 들어서 한번 호출할 때 마다 나이를 10 더하는 식으로 변경하고 싶다고 가정하겠습니다.
+
+- PATCH는 멱등이 아니기 때문에 다음과 같이 특정 부분을 추가로 더하거나 하는 식으로 설계해도 됩니다. 물론 이 경우 서버에서 operation add가 어떤 의미인지 알 수 있어야 합니다.
+
+```json
+
+{ "operation": "add", "age": 10"}
+
+```
+
+- 이렇게 하면 2번 호출하면 +10 + 10이 되어 버려서 먹등이 아닙니다.
+
+- 정리해드리면 PATCH는 리소스의 특정 부분을 변경하는데, 이 변경 방식이 멱등이어도 되고, 멱등이 아니어도 됩니다.
+
 ---
 
 ## 8.5 Headers의 오해와 진실
 
 - HTTP는 Stateless 하다
 
+  - 개별적인 각각의 요청은 서로 연관이 없다
+
 <img src='./images/Ch08/10.png'>
 
 - 그렇기 때문에 세션과 쿠키를 통해서 사용자가 로그인되어 있는 것을 알 수 있다.
 
-<img src='./images/Ch08/10.png'>
-
 <img src='./images/Ch08/11.png'>
+
+- 이렇게 쿠키를 받으면 브라우저가 자동으로 저장하고 있다가 다음에 요청을 할 때 요청 헤더에 똑같은 쿠키를 넣어서 서버에 보내게 된다.
 
 <img src='./images/Ch08/12.png'>
 
