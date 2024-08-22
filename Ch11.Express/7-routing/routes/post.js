@@ -1,6 +1,6 @@
 import express from 'express';
 
-const router = express.Router();
+const router = express.Router(); // app이 아니라 Router를 만든다.
 
 router.use((req, res, next) => {
   console.log('middleware for posts!');
