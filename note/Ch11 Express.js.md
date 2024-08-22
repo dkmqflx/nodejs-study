@@ -91,7 +91,7 @@ app.get(
     console.log("first");
 
     if (true) {
-      // res.send("Hello");, return 없으면 에러 발생
+      // res.send("Hello");, return 없이 한 콜백 함수에서 두개의 res.send 있으면 에러 발생
       return res.send("Hello");
     }
     res.send("Hello2");
@@ -106,6 +106,7 @@ app.get(
 
 ```js
 app.all("/blue", (req, res, next) => {
+  // app.all('/blue/*') 이런식으로 ㄹ하면 blue가 포함된 모든 경로에 대해서 수행이 된다 
   console.log("blue");
   next();
 });
