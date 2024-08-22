@@ -40,8 +40,12 @@ app.get("/file3", async (req, res) => {
   }
 });
 
-// use를 사용해서 에러를 한번에 처리할 수 있다
-// Express 5 부터는 이렇게
+// 기본적으로 각각의 미들웨어 안에서 적절하게 에러를 처리해주는 것이 좋지만
+// 혹시 깜빡하고 에러를 처리하지 않았다면 use를 사용해서 에러를 한번에 처리할 수 있다
+
+// 현재는 실수로 위처럼 프로미스에서 catch를 사용해서 에러를 처리하지 않았다면 에러가 발생하지만
+// Express 5 부터는 아래와 같이 한번에 에러를 처리할 수 있게 된다.
+// 현재는 아래처럼 작성된 코드는 프로미스는 에러를 처리 하지 못한다.
 app.use((error, req, res, next) => {
   console.error(error);
   res.status(500).json({ message: "Something went wrong" });
