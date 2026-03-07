@@ -10,6 +10,10 @@
 
 ## 4.3 글로벌 오브젝트 - 소스 공부법
 
+```js
+console.log(global); // node 에는 global이라는 오브젝트가 있다
+```
+
 - Globals
 
   - https://nodejs.org/docs/latest/api/globals.html
@@ -24,9 +28,7 @@
 
   - [globals.global.d.ts](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/9d59b7aadafb5ee2afac9c4440b82e692a7449c1/types/node/globals.global.d.ts)
 
-- 저는 @types/node_version 15로 사용하고 있고, 위와 같이 나오신다면 아마 여러분들은 버전 16 이상을
-
-- 사용하고 계실거예요.
+- 저는 @types/node_version 15로 사용하고 있고, 위와 같이 나오신다면 아마 여러분들은 버전 16 이상을 사용하고 계실거예요.
 
 - 타입 정의 여기서 확인해 보세요: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/9d59b7aadafb5ee2afac9c4440b82e692a7449c1/types/node/globals.d.ts#L97
 
@@ -194,6 +196,14 @@ setTimeout(() => {
 
 - 그쵸! rename 함수 자체가 비동기 적이기 때문에 어떤것이 먼저 끝날지는 보장 할 수 없어요 :)
 
+- AI에 질문
+
+  - 1번이 먼저 호출되었으니 1번 일꾼이 먼저 일을 시작하긴 합니다. 하지만 다음과 같은 상황들 때문에 2번이 먼저 끝날 수 있습니다.
+
+  - 파일 크기나 시스템 상태: text-new.txt를 찾는 데 시간이 더 걸릴 수도 있고, OS가 2번 작업을 처리하는 일꾼에게 자원을 더 먼저 배분할 수도 있습니다.
+
+  - 병렬 처리: Node.js는 이 두 작업을 동시에(Parallel) 시킵니다. 1번이 끝나기를 기다렸다가 2번을 시키는 게 아니라, 둘 다 일단 시켜놓고 보는 것입니다.
+
 <br/>
 
 ### Q. 태스크큐 질문드립니다
@@ -247,6 +257,10 @@ setTimeout(() => {
 - 이럴때는 조금씩 버퍼를 스트리밍해서 메모리로 가지고 오면 된다
 
 - 버퍼와 스트림은 메모리가 효율적이고 시간도 효율적이다
+
+  - Memory efficiency
+
+  - Time efficiency
 
 ---
 

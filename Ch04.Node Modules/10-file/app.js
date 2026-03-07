@@ -25,7 +25,10 @@ try {
 fs.rename("./text-new.txt", "./text.txt", (error) => {
   console.log(error);
 });
-console.log("hello"); // 성공한 경우에만 hello가 출력된다
+console.log("hello");
+// 에러 없으면 아래처럼 출력
+// hello
+// null
 
 fs.promises
   .rename("./text2.txt", "./text-new.txt") //

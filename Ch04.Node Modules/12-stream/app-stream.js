@@ -13,24 +13,34 @@ const data = [];
 // once 딱 한번만 콜백함수를 실행한다
 // 예를들어  highWaterMark: 8,로 옵션을 두면 딱 8 kbytes만 읽고 끝이난다
 
-readStream.once("data", (chunk) => {
+// readStream.once("data", (chunk) => {
+//   // console.log(chunk);
+//   data.push(chunk);
+//   console.count("data"); // 데이터가 몇번 출력되는지 확인할 수 있다.
+//   readStream.close();
+// });
+
+readStream.on("data", (chunk) => {
   // console.log(chunk);
   data.push(chunk);
   console.count("data"); // 데이터가 몇번 출력되는지 확인할 수 있다.
-  readStream.close();
+});
+
+readStream.on("end", () => {
+  console.log(data.join(""));
 });
 
 // close 실행되면 실행된다.
-readStream.on("close", () => {
-  console.log(data.join(""));
-  // calculate
-  const afterMem = process.memoryUsage().rss;
-  const diff = afterMem - beforeMem;
-  const consumed = diff / 1024 / 1024;
-  console.log(diff);
-  console.log(`Consumed Memory: ${consumed}MB`);
-});
+// readStream.on("close", () => {
+//   console.log(data.join(""));
+//   // calculate
+//   const afterMem = process.memoryUsage().rss;
+//   const diff = afterMem - beforeMem;
+//   const consumed = diff / 1024 / 1024;
+//   console.log(diff);
+//   console.log(`Consumed Memory: ${consumed}MB`);
+// });
 
-readStream.on("error", (error) => {
-  console.log(error);
-});
+// readStream.on("error", (error) => {
+//   console.log(error);
+// });
