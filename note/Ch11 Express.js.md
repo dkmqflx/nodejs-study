@@ -12,6 +12,8 @@ app.get('/', function (req, res, next) {
 
 - 여기서 콜백함수에 해당하는 부분을 middleware라고 하고, express는 미들웨어의 연속이라고 할 수 있다.
 
+- next를 호출하면 다음 미들웨어로 넘길 수 있다
+
 <br/>
 
 ### Q. express 콜백함수 질문입니다.
@@ -106,7 +108,7 @@ app.get(
 
 ```js
 app.all("/blue", (req, res, next) => {
-  // app.all('/blue/*') 이런식으로 ㄹ하면 blue가 포함된 모든 경로에 대해서 수행이 된다 
+  // app.all('/blue/*') 이런식으로 ㄹ하면 blue가 포함된 모든 경로에 대해서 수행이 된다
   console.log("blue");
   next();
 });
@@ -199,7 +201,7 @@ app.use("/red", (req, res, next) => {
 
 - 다른 IP를 가진 다면 원칙적으로 그 어떤 데이터를 주고 받을 수 없 다
 
-- 그래서 서버에서 Access-Control-Allow-Origin라는 것을 헤더에 추가해주어야지 브라우저에서 데이터를 가져와서 클라이언트에서 볼 수 있다
+- 그래서 서버에서 Access-Control-Allow-Origin라는 것을 response 헤더에 추가해주어야지 브라우저에서 데이터를 가져와서 클라이언트에서 볼 수 있다
 
 <br/>
 

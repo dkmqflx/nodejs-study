@@ -9,12 +9,13 @@ app.use(express.json());
 // 옵션을 전달해주어야 한다
 app.use(express.urlencoded({ extended: false }));
 
-// express.static
-// 사용하면 서버에 있는, 예를들어 public 폴더에 있는 파일에 쉽게 접근할 수 있게 해준다.
 app.post("/posts", (req, res) => {
   console.log(req.body);
   res.status(201).send("Thanks, Created");
 });
+
+// express.static
+// 사용하면 서버에 있는, 예를들어 public 폴더에 있는 파일에 쉽게 접근할 수 있게 해준다.
 
 const options = {
   dotfiles: "ignore", // 숨겨진 파일은 보여주지 않는다

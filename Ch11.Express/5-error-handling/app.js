@@ -16,7 +16,7 @@ app.get("/file1", (req, res) => {
 
   // 2. 동기적인 경우 아래처럼 try - catch로 에러를 처리해준다
   try {
-    const data = fs.readFileSync("/file1.txt"); // 동기적으로 처리, 파일을 읽을 때 까지 기다린다
+    const data = fs.readFileSync("/file1.txt"); // 동기적으로 처리, 파일을 읽을 때 까지 기다린다. 이렇게 서버에서 동기적으로 처리하는 것 좋지 않다
   } catch (error) {
     res.sendStatus(404);
   }
