@@ -1,3 +1,5 @@
+// 2. controller 폴더에 tweet.js 파일을 만들어준다
+
 import * as tweetRepository from "../data/tweet.js";
 
 export async function getTweets(req, res) {
