@@ -34,6 +34,7 @@ router.post("/signup", validateSignup, authController.signup);
 
 router.post("/login", validateCredential, authController.login);
 
+// 유효한 사용자인지 isAuth 미들웨어를 통해 확인한다
 router.get("/me", isAuth, authController.me);
-
+// isAuth 미들웨어 내부에서 next() 함수를 호출하기 때문에, 그 다음 순서인 authController.me가 실행될 수 있는 것
 export default router;
