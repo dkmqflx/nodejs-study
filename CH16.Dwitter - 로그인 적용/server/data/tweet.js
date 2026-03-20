@@ -1,20 +1,22 @@
-import * as userRepository from './auth.js';
+import * as userRepository from "./auth.js";
 
+// tweet에는 사용자 아이디만 가지고 있다 (data/auth.js)
 let tweets = [
   {
-    id: '1',
-    text: '드림코더분들 화이팅!',
+    id: "1",
+    text: "드림코더분들 화이팅!",
     createdAt: new Date().toString(),
-    userId: '1',
+    userId: "1",
   },
   {
-    id: '2',
-    text: '안뇽!',
+    id: "2",
+    text: "안뇽!",
     createdAt: new Date().toString(),
-    userId: '1',
+    userId: "1",
   },
 ];
 
+// tweet과 user의 정보를 합쳐서 반환한다
 export async function getAll() {
   return Promise.all(
     tweets.map(async (tweet) => {
@@ -26,6 +28,7 @@ export async function getAll() {
   );
 }
 
+// username을 기준으로 필터링한다
 export async function getAllByUsername(username) {
   return getAll().then((tweets) =>
     tweets.filter((tweet) => tweet.username === username)
