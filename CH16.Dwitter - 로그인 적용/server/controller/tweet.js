@@ -1,4 +1,4 @@
-import * as tweetRepository from '../data/tweet.js';
+import * as tweetRepository from "../data/tweet.js";
 
 export async function getTweets(req, res) {
   const username = req.query.username;
@@ -31,6 +31,7 @@ export async function updateTweet(req, res, next) {
   if (!tweet) {
     return res.status(404).json({ message: `Tweet not found: ${id}` });
   }
+  // 트윗 작성자와 요청자가 다른 경우 권한 없음
   if (tweet.userId !== req.userId) {
     return res.sendStatus(403);
   }
@@ -44,6 +45,7 @@ export async function deleteTweet(req, res, next) {
   if (!tweet) {
     return res.status(404).json({ message: `Tweet not found: ${id}` });
   }
+  // 트윗 작성자와 요청자가 다른 경우 권한 없음
   if (tweet.userId !== req.userId) {
     return res.sendStatus(403);
   }
