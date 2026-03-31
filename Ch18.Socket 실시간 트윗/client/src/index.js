@@ -1,22 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import AuthService from './service/auth';
-import TweetService from './service/tweet';
-import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { AuthErrorEventBus } from './context/AuthContext';
-import HttpClient from './network/http';
-import TokenStorage from './db/token';
-import Socket from './network/socket';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import AuthService from "./service/auth";
+import TweetService from "./service/tweet";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { AuthErrorEventBus } from "./context/AuthContext";
+import HttpClient from "./network/http";
+import TokenStorage from "./db/token";
+import Socket from "./network/socket"; // 소켓 연결
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 const tokenStorage = new TokenStorage();
 const httpClient = new HttpClient(baseURL);
 const authErrorEventBus = new AuthErrorEventBus();
 const authService = new AuthService(httpClient, tokenStorage);
-const socketClient = new Socket(baseURL, () => tokenStorage.getToken());
+const socketClient = new Socket(baseURL, () => tokenStorage.getToken()); // 최신 토큰을 사용할 수 있도록 콜백 함수로 전달
 const tweetService = new TweetService(httpClient, tokenStorage, socketClient);
 
 ReactDOM.render(
@@ -30,5 +30,5 @@ ReactDOM.render(
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
