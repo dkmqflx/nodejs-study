@@ -14,10 +14,12 @@ export async function connectDB() {
   });
 }
 
+// users 컬렉션 조회
 export function getUsers() {
   return db.collection("users");
 }
 
+// tweets 컬렉션 조회
 export function getTweets() {
   return db.collection("tweets");
 }

@@ -1,5 +1,5 @@
-import MongoDb from 'mongodb';
-import { getUsers } from '../database/database.js';
+import MongoDb from "mongodb";
+import { getUsers } from "../database/database.js";
 const ObjectID = MongoDb.ObjectID;
 
 // SQL: DB Schema
