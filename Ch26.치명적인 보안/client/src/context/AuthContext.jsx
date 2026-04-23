@@ -7,13 +7,13 @@ import {
   useImperativeHandle,
   useMemo,
   useState,
-} from 'react';
-import Header from '../components/Header';
-import Login from '../pages/Login';
+} from "react";
+import Header from "../components/Header";
+import Login from "../pages/Login";
 
 const AuthContext = createContext({});
 
-const tokenRef = createRef();
+const tokenRef = createRef(); // 메모리상에 토큰을 가지고 있다
 const csrfRef = createRef();
 
 export function AuthProvider({ authService, authErrorEventBus, children }) {
@@ -72,7 +72,7 @@ export function AuthProvider({ authService, authErrorEventBus, children }) {
       {user ? (
         children
       ) : (
-        <div className='app'>
+        <div className="app">
           <Header />
           <Login onSignUp={signUp} onLogin={logIn} />
         </div>
