@@ -1,5 +1,5 @@
-import axios from 'axios';
-import axiosRetry from 'axios-retry';
+import axios from "axios";
+import axiosRetry from "axios-retry";
 
 const defaultRetryConfig = {
   retries: 5,
@@ -17,7 +17,7 @@ export default class HttpClient {
     this.getCsrfToken = getCsrfToken;
     this.client = axios.create({
       baseURL: baseURL,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
     axiosRetry(this.client, {
@@ -40,7 +40,7 @@ export default class HttpClient {
       method,
       headers: {
         ...headers,
-        '_csrf-token': this.getCsrfToken(),
+        "_csrf-token": this.getCsrfToken(), // CSRF 토큰 발급
       },
       data: body,
     };
@@ -52,10 +52,10 @@ export default class HttpClient {
       if (err.response) {
         const data = err.response.data;
         const message =
-          data && data.message ? data.message : 'Something went wrong! 🤪';
+          data && data.message ? data.message : "Something went wrong! 🤪";
         throw new Error(message);
       }
-      throw new Error('connection error');
+      throw new Error("connection error");
     }
   }
 }

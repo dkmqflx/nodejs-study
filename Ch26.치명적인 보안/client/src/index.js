@@ -19,7 +19,7 @@ const authErrorEventBus = new AuthErrorEventBus();
 const httpClient = new HttpClient(
   baseURL,
   authErrorEventBus, //
-  () => fetchCsrfToken()
+  () => fetchCsrfToken() // CSRF 토큰 발급
 );
 const authService = new AuthService(httpClient);
 
