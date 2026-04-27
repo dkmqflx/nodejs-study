@@ -38,8 +38,9 @@ export async function login(req, res) {
   res.status(200).json({ token, username });
 }
 
+// 로그아웃 함수
 export async function logout(req, res, next) {
-  res.cookie("token", "");
+  res.cookie("token", ""); // 쿠키를 비워줌
   res.status(200).json({ message: "User has been logged out" });
 }
 
