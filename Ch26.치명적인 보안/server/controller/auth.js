@@ -69,11 +69,14 @@ export async function me(req, res, next) {
   res.status(200).json({ token: req.token, username: user.username });
 }
 
+// CSRF 토큰 발급
 export async function csrfToken(req, res, next) {
   const csrfToken = await generateCSRFToken();
   res.status(200).json({ csrfToken });
 }
 
+// CSRF 토큰 생성
 async function generateCSRFToken() {
   return bcrypt.hash(config.csrf.plainToken, 1);
+  // salt가 길면 그 만큼 시간이 오래 걸린다
 }

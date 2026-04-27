@@ -1,20 +1,23 @@
-import { config } from '../config.js';
-import bcrypt from 'bcrypt';
+import { config } from "../config.js";
+import bcrypt from "bcrypt";
 
+// CSRF 토큰 검증
 export const csrfCheck = (req, res, next) => {
   if (
-    req.method === 'GET' ||
-    req.method === 'OPTIONS' ||
-    req.method === 'HEAD'
+    req.method === "GET" ||
+    req.method === "OPTIONS" ||
+    req.method === "HEAD"
   ) {
     return next();
   }
 
-  const csrfHeader = req.get('_csrf-token');
+  // 서버의 상태를 변경하는 요청에 대해서만 CSRF 토큰 검증
+
+  const csrfHeader = req.get("_csrf-token");
 
   if (!csrfHeader) {
     console.warn('Missing required "_csrf-token" header.', req.headers.origin);
-    return res.status(403).json({ message: 'Failed CSRF check' });
+    return res.status(403).json({ message: "Failed CSRF check" });
   }
 
   validateCsrfToken(csrfHeader)
@@ -25,16 +28,17 @@ export const csrfCheck = (req, res, next) => {
           req.headers.origin,
           csrfHeader
         );
-        return res.status(403).json({ message: 'Failed CSRF check' });
+        return res.status(403).json({ message: "Failed CSRF check" });
       }
       next();
     })
     .catch((err) => {
       console.log(err);
-      return res.status(500).json({ message: 'Something went wrong' });
+      return res.status(500).json({ message: "Something went wrong" });
     });
 };
 
+// CSRF 토큰 검증
 async function validateCsrfToken(csrfHeader) {
   return bcrypt.compare(config.csrf.plainToken, csrfHeader);
 }
