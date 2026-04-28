@@ -1,8 +1,10 @@
-import rateLimit from 'express-rate-limit';
-import { config } from '../config.js';
+import rateLimit from "express-rate-limit";
+import { config } from "../config.js";
 
 export default rateLimit({
-    windowMs: config.rateLimit.windowMs, 
-    max: config.rateLimit.maxRequest,
-    keyGenerator: (req, res) => 'dwitter',
-})
+  windowMs: config.rateLimit.windowMs,
+  max: config.rateLimit.maxRequest,
+  keyGenerator: (req, res) => "dwitter",
+});
+
+// https://github.com/nfriedly/express-rate-limit
