@@ -1,3 +1,5 @@
+# OpenAPI 3.0.0 문서 작성
+# 이런 정의 형태는 yaml 형태로 작성한다
 openapi: 3.0.0
 info:
   description: This is Dwitter API service.
@@ -6,14 +8,14 @@ info:
   contact:
     email: info@dream-coding.com
 servers:
-  - url: 'http://localhost:8080'
-tags:
+  - url: "http://localhost:8080"
+tags: # 태그는 문서의 섹션을 구분하는 데 사용된다.
   - name: tweets
     description: Methods to access and manage tweets
   - name: auth
     description: Methods to handle authentication
 
-paths:
+paths: # 경로는 문서의 섹션을 구분하는 데 사용된다.
   /auth/signup:
     post:
       tags:
@@ -25,27 +27,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserRegistration'
+              $ref: "#/components/schemas/UserRegistration"
         required: true
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthApiResponse'
-        '400':
+                $ref: "#/components/schemas/AuthApiResponse"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-        '409':
+                $ref: "#/components/schemas/ErrorApiResponse"
+        "409":
           description: User already exists
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
+                $ref: "#/components/schemas/ErrorApiResponse"
 
   /tweets:
     get:
@@ -63,18 +65,18 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Succeeded
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TweetsApiResponse'
-        '401':
+                $ref: "#/components/schemas/TweetsApiResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
+                $ref: "#/components/schemas/ErrorApiResponse"
       security:
         - jwt_auth: []
 
@@ -107,7 +109,7 @@ components:
         password: password
         name: John Doe
         email: john.doe@gmail.com
-        url: 'https://awesomepics.com/878y766'
+        url: "https://awesomepics.com/878y766"
     Tweet:
       type: object
       properties:
@@ -121,7 +123,7 @@ components:
           type: string
           format: date-time
           description: Creation date
-          example: '2021-01-30T08:30:20.000Z'
+          example: "2021-01-30T08:30:20.000Z"
         username:
           type: string
         name:
@@ -147,7 +149,7 @@ components:
       example:
         id: 42
         text: Best tweet ever
-        createdAt: '2021-01-30T08:30:20.000Z'
+        createdAt: "2021-01-30T08:30:20.000Z"
         userId: 1
         name: John Doe
         username: johndoe
@@ -173,11 +175,11 @@ components:
       required:
         - message
       example:
-        message: 'Something went wrong 🤪'
+        message: "Something went wrong 🤪"
     TweetsApiResponse:
       type: array
       items:
-        $ref: '#/components/schemas/Tweet'
+        $ref: "#/components/schemas/Tweet"
   securitySchemes:
     jwt_auth:
       description: Bearer token authorization with JWT
