@@ -47,9 +47,12 @@ app.use(
       resolver: modulePathResolver, // 모듈 경로 해석기
       // 어떤 모듈에 있는 함수를 사용할지 결정한다
     },
+
+    // 인증 처리
+    // 어떤 핸들러를 사용할지 결정한다
     validateSecurity: {
       handlers: {
-        jwt_auth: authHandler,
+        jwt_auth: authHandler, // 인증 핸들러
       },
     },
   })
