@@ -37,13 +37,15 @@ app.use("/tweets", tweetsRouter);
 app.use("/auth", authRouter);
 
 // OpenAPI 문서 검증을 위해 사용한다
+// Routing + Validation
 app.use(
   OpenAPIValidator.middleware({
     apiSpec: "./api/openapi.yaml",
     validateResponses: true,
 
     operationHandlers: {
-      resolver: modulePathResolver,
+      resolver: modulePathResolver, // 모듈 경로 해석기
+      // 어떤 모듈에 있는 함수를 사용할지 결정한다
     },
     validateSecurity: {
       handlers: {
